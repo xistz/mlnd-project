@@ -1,7 +1,7 @@
 # Machine Learning Nanodegree Capstone Proposal
 
 Chan Jian Hui Jonathan 
-[email](tmxistz@gmail.com)
+[Email](tmxistz@gmail.com)
 26 December 2018
 
 *In this project, the goal is to built a classifier to predict the type of cuisine given the recipe of the dish. Food is a cultural heritage, it puts on display what each culture celebrates about its geography. Through this project, I hope to learn, can a cuisine be defined by its ingredients.*
