@@ -4,46 +4,74 @@ Chan Jian Hui Jonathan
 January 15, 2019
 
 ## I. Definition
-_(approx. 1-2 pages)_
+<!-- _(approx. 1-2 pages)_ -->
 
 ### Project Overview
+<!-- 
 In this section, look to provide a high-level overview of the project in layman’s terms. Questions to ask yourself when writing this section:
 - _Has an overview of the project been provided, such as the problem domain, project origin, and related datasets or input data?_
 - _Has enough background information been given so that an uninformed reader would understand the problem domain and following problem statement?_
+-->
 
 Classification is an important skill. When we classify, we able to identify the object of interest and separate it from other objects. Being able to distinguish and separate objects from one other is an important skill because it then allows us to act on those objects.
 
 It is one of the most important skills we first learn. When a baby repeats, "cake" after a parent who points at a piece of cake the baby learns not only the pronunciation of the word, the baby learns to distinguish cake from other objects. When a parent then puts the cake into the baby's mouth, the baby learns that objects identified as cake can be eaten. So the next time, when a baby sees cake, the baby is able to exclaim in delight, "cake!" before devouring it. As result, being able to distinguish cakes from toys allows us to act on the cakes and eat them.
 
-We classify objects by considering its features. However, because objects can have numerous features, we know not to consider all of them, only an important subset. This knowledge is not instinctive, it is acquired after learning from many samples. Just as an adult is better than a baby at classifying cakes, we get better at classifying objects as we encounter more samples of the target object. That is because we begin to learn which are the important features that help us make better classifications. 
+We classify objects by considering its features. However, because objects can have numerous features, we know not to consider all of them, only an important subset. In the example of cake, we know to consider only features such as its appearance, texture, and taste but not the sound it produces. This knowledge is not instinctive, it is acquired after learning from many samples. Just as an adult is better than a baby at classifying cakes, we get better at classifying objects as we encounter more samples of the target object. That is because as we encounter more samples of the target object, we begin to learn which are the important features that help us make better classifications. 
 
-Similar to us, machines can also learn from data and be taught to classify objects. This achieved through the use of a class of machine learning algorithms known as supervised learning algorithms. Besides classication, supervised learning algorithms can also accomplish other tasks such as regression, and anomaly detection. However, for the purpose of this project, we will focus only on using supervised learning to develop a classifier.
+Similar to us, machines can also learn from data and be taught to classify objects. This achieved through the use of a class of machine learning algorithms known as supervised learning algorithms. Although classification is not the only task that supervised learing algorithms can accomplish, it will be the focus of this project.
 
 ### Problem Statement
+<!--
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
 - _Is the problem statement clearly defined? Will the reader understand what you are expecting to solve?_
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
 - _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
+-->
 
-In this project, the goal is to build a classifier to predict the cuisine of a recipe, given its ingredients. This project is inspired by a past Kaggle competition [What's Cooking](https://www.kaggle.com/c/whats-cooking-kernels-only). 
+In this project, the goal is to build a classifier to predict the cuisine of a recipe, given its ingredients. This project is inspired by a past Kaggle competition, [What's Cooking](https://www.kaggle.com/c/whats-cooking-kernels-only). The data that will be used in this project comes from the Kaggle competition and can be found [here](https://www.kaggle.com/c/whats-cooking-kernels-only/data).
 
+This competition was chosen because of its emphasis on food. Food is a cultural heritage, it puts on display what each culture celebrates about its geography. As a result, the cuisines were can enjoy in the world are as numerous as the cultures themselves. We are all proud of our cuisines and quick to defend the uniqueness of our cuisine. This uniqueness lies in part because of certain ingredients can only be found in the locales of those cuisines. Therefore, I anticipate that the classification of cuisines will be defined by certain key ingredients.
 
+I have 2 objectives for this project. The first is to build a classifier that will perform better than the sample benchmark of `0.19267` on Kaggle. The second is to better understand what defines each of the cuisines in the data.
 
 ### Metrics
+<!--
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
+-->
+
+This project will use the same metric as the Kaggle competition. The metric is categorization accuracy. The categorization accuracy is defined as the ratio of correctly classified recipes to the total number of recipes in the test dataset.
+
+```
+categorization_accuracy = no_correct / no_recipes
+```
+
+Categorization accuracy is a sufficient metric for this project because we are interested in how accurately our model predicts the cuisine given the ingredients of the recipe.
 
 
 ## II. Analysis
-_(approx. 2-4 pages)_
+<!-- _(approx. 2-4 pages)_ -->
 
 ### Data Exploration
+<!--
 In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
 - _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
 - _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
+-->
+
+There are 3 files provided in the Kaggle competion, `train.json`, `test.json`, and `sample_submission.csv`. Only `train.json` and `test.json` will be used for this project. According to Kaggle, this dataset was provided by Yummly.
+
+After loading `train.json` and `test.json` using `pandas.read_json`, we find that there are 39,774 recipes in the train dataset and 9944 recipes in the test dataset. The train dataset has 3 fields, cuisine, id, and ingredients. The test dataset only contains the fields, id, and ingredients, since cuisine is the field to be predicted. There are no recipes in the train dataset containing missing cuisine, id, or ingredients. 
+
+There are 20 unique cuisines represented in this project. They are, greek, southern_us, filipino, indian, jamaican, spanish, italian, mexican, chinese, british, thai, vietnamese, cajun_creole, brazilian, french, japanese, irish, korean, moroccan, and russian.
+
+There was no information about the id field in the dataset. Id probably refers to the id of the recipe in yummly's database. Since the goal of the project is to build a classifier to predict cuisine from ingredients, the id field will be dropped when preprocessing the data.
+
+There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe.
 
 ### Exploratory Visualization
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
