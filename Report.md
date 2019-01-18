@@ -75,7 +75,7 @@ After loading `train.json` and `test.json` using `pandas.read_json`, we find tha
 
 There are 20 unique cuisines represented in this project. They are, greek, southern_us, filipino, indian, jamaican, spanish, italian, mexican, chinese, british, thai, vietnamese, cajun_creole, brazilian, french, japanese, irish, korean, moroccan, and russian.
 
-![Number of Unique Cuisines](https://www.kaggleusercontent.com/kf/9663901/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..vpbkPiFXALeMv9cOBD6q3Q.XuXM5PfFdrVwmBTuDgImdqjE-NRtK3_aiF427skyO9qxQAUYjn-AvEsca0n5pSnnqLsRgl-RqO3lwisKHiLs8goD6YCKvg9pUahSbLzxm-b9ai5zFqFN1blupeYEIQdkS1A5mbpB4G2pKsTKs29yPg9ivGHrSG-MPsnwyoDR03U.EKh53XbKLJKO04f02VPTXg/unique_cuisines.png)
+![Number of Unique Cuisines](https://www.kaggleusercontent.com/kf/9677220/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..lHBhTz0QpL3xiDRIyLWLIw.2RPKL7_dKW_hzXkSqkVfJZiinZ02-hoPqasMmIXaBHjdsYa2Q0wck8j2MdTMk_acNYiaLlRZdS4JgrRVhY9jJ3-BqKKBe3Cp6xr2p7bi6hPuDQZlYtuM8ANgAickRk_UtPHfR0wZPx4lKVNjsq2J7lLRoSYOnXg5-7MvwEl8JDo.U7BNwRGG5PtEjQhE76hxFg/unique_cuisines.png)
 
 From the figure, we can see that the distribution of cuisines in the train dataset is not uniform. This could lead to a problem when training the model, as the model could be bias towards cuisines that are more well represented in the train dataset.
 
@@ -83,7 +83,7 @@ There was no information about the id field in the dataset. Id probably refers t
 
 There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe. If ingredients are not dropped, we will need to choose a classifier like a decision tree that works well with a large number features.
 
-![Number of Ingredients per Recipe](https://www.kaggleusercontent.com/kf/9675024/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..szspoJkp-tJbWT7L8cxKgA.Hq2L_wx178rruU3Vt_EBqs0vT3F39MHB6nHaYdaVOEmbodY3I0Cy4ZJqsZJPJ5AMBDKIJIQkkgXDuKUMaU8zocpnCsojL8LA-_L4vVKzcokE0O2Ejdpdm0jhhxZiN68Fnubk-GGpAV5tgeYcNZ0ecRcgRxRIepeu6iDQesb6qss.WH2q_mv0D9cYdgtSED_4IQ/ingredients_per_recipe.png)
+![Number of Ingredients per Recipe](https://www.kaggleusercontent.com/kf/9677220/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..razbwmGjpUINmL7WkOVilQ.LG6kb5b_m64Y78wJYl5ziev8UMSvqK3csNpL7RvjnylC8xaI9irG7coGFkZUjsn2EbyejdXwnQuTw-X1J48F--9ACpb_91kZHcnWuTFhLfbfMgqhTvTYAs1ekT9a8NEL_1zGeSFem-ty1Qb9eoR5r1VU0-syTobkM_uTWAnwGWs.aj8mu9zn4gRb-VpOvyHOFA/ingredients_per_recipe.png)
 
 
 
