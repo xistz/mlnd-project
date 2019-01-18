@@ -54,13 +54,19 @@ Categorization accuracy is a sufficient metric for this project because we are i
 ## II. Analysis
 <!-- _(approx. 2-4 pages)_ -->
 
-### Data Exploration
+### Data Exploration and Exploratory Visualization
 <!--
 In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
 - _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
 - _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
+
+### Exploratory Visualization
+In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
+- _Have you visualized a relevant characteristic or feature about the dataset or input data?_
+- _Is the visualization thoroughly analyzed and discussed?_
+- _If a plot is provided, are the axes, title, and datum clearly defined?_
 -->
 
 There are 3 files provided in the Kaggle competion, `train.json`, `test.json`, and `sample_submission.csv`. Only `train.json` and `test.json` will be used for this project. According to Kaggle, this dataset was provided by Yummly.
@@ -69,15 +75,17 @@ After loading `train.json` and `test.json` using `pandas.read_json`, we find tha
 
 There are 20 unique cuisines represented in this project. They are, greek, southern_us, filipino, indian, jamaican, spanish, italian, mexican, chinese, british, thai, vietnamese, cajun_creole, brazilian, french, japanese, irish, korean, moroccan, and russian.
 
+![Number of Unique Cuisines](https://www.kaggleusercontent.com/kf/9663901/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..vpbkPiFXALeMv9cOBD6q3Q.XuXM5PfFdrVwmBTuDgImdqjE-NRtK3_aiF427skyO9qxQAUYjn-AvEsca0n5pSnnqLsRgl-RqO3lwisKHiLs8goD6YCKvg9pUahSbLzxm-b9ai5zFqFN1blupeYEIQdkS1A5mbpB4G2pKsTKs29yPg9ivGHrSG-MPsnwyoDR03U.EKh53XbKLJKO04f02VPTXg/unique_cuisines.png)
+
+From the figure, we can see that the distribution of cuisines in the train dataset is not uniform. This could lead to a problem when training the model, as the model could be bias towards cuisines that are more well represented in the train dataset.
+
 There was no information about the id field in the dataset. Id probably refers to the id of the recipe in yummly's database. Since the goal of the project is to build a classifier to predict cuisine from ingredients, the id field will be dropped when preprocessing the data.
 
-There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe.
+There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe. If ingredients are not dropped, we will need to choose a classifier like a decision tree that works well with a large number features.
 
-### Exploratory Visualization
-In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
-- _Have you visualized a relevant characteristic or feature about the dataset or input data?_
-- _Is the visualization thoroughly analyzed and discussed?_
-- _If a plot is provided, are the axes, title, and datum clearly defined?_
+![Number of Ingredients per Recipe](https://www.kaggleusercontent.com/kf/9675024/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..szspoJkp-tJbWT7L8cxKgA.Hq2L_wx178rruU3Vt_EBqs0vT3F39MHB6nHaYdaVOEmbodY3I0Cy4ZJqsZJPJ5AMBDKIJIQkkgXDuKUMaU8zocpnCsojL8LA-_L4vVKzcokE0O2Ejdpdm0jhhxZiN68Fnubk-GGpAV5tgeYcNZ0ecRcgRxRIepeu6iDQesb6qss.WH2q_mv0D9cYdgtSED_4IQ/ingredients_per_recipe.png)
+
+
 
 ### Algorithms and Techniques
 In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
