@@ -75,7 +75,7 @@ After loading `train.json` and `test.json` using `pandas.read_json`, we find tha
 
 There are 20 unique cuisines represented in this project. They are, greek, southern_us, filipino, indian, jamaican, spanish, italian, mexican, chinese, british, thai, vietnamese, cajun_creole, brazilian, french, japanese, irish, korean, moroccan, and russian.
 
-![Number of Unique Cuisines](https://www.kaggleusercontent.com/kf/9677220/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..lHBhTz0QpL3xiDRIyLWLIw.2RPKL7_dKW_hzXkSqkVfJZiinZ02-hoPqasMmIXaBHjdsYa2Q0wck8j2MdTMk_acNYiaLlRZdS4JgrRVhY9jJ3-BqKKBe3Cp6xr2p7bi6hPuDQZlYtuM8ANgAickRk_UtPHfR0wZPx4lKVNjsq2J7lLRoSYOnXg5-7MvwEl8JDo.U7BNwRGG5PtEjQhE76hxFg/unique_cuisines.png)
+![Number of Unique Cuisines]()
 
 From the figure, we can see that the distribution of cuisines in the train dataset is not uniform. This could lead to a problem when training the model, as the model could be bias towards cuisines that are more well represented in the train dataset.
 
@@ -83,30 +83,48 @@ There was no information about the id field in the dataset. Id probably refers t
 
 There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe. If ingredients are not dropped, we will need to choose a classifier like a decision tree that works well with a large number features.
 
-![Number of Ingredients per Recipe](https://www.kaggleusercontent.com/kf/9677220/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..razbwmGjpUINmL7WkOVilQ.LG6kb5b_m64Y78wJYl5ziev8UMSvqK3csNpL7RvjnylC8xaI9irG7coGFkZUjsn2EbyejdXwnQuTw-X1J48F--9ACpb_91kZHcnWuTFhLfbfMgqhTvTYAs1ekT9a8NEL_1zGeSFem-ty1Qb9eoR5r1VU0-syTobkM_uTWAnwGWs.aj8mu9zn4gRb-VpOvyHOFA/ingredients_per_recipe.png)
+![Number of Ingredients per Recipe]()
 
+Number of Ingredients per recipe by Cuisine
+
+Most common Ingredient of each cuisine.
 
 
 ### Algorithms and Techniques
+<!--
 In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
 - _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
 - _Are the techniques to be used thoroughly discussed and justified?_
 - _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
+-->
+The algorithm I intend to use for this project is the Decision Tree Classifier. It was chosen because of 2 reasons:
+- This is a multiclass classification problem.
+- There are a large number of ingredients(features).
+
+Besides it speed of training and prediction accuracy, Decision Tree algorithms are also known to overfit. If required, steps could be taking to prevent overfiting by using regularization (K-Fold) or by using an ensemble classifer(Random Forest) instead.
 
 ### Benchmark
+<!-- 
 In this section, you will need to provide a clearly defined benchmark result or threshold for comparing across performances obtained by your solution. The reasoning behind the benchmark (in the case where it is not an established result) should be discussed. Questions to ask yourself when writing this section:
 - _Has some result or value been provided that acts as a benchmark for measuring performance?_
 - _Is it clear how this result or value was obtained (whether by data or by hypothesis)?_
+-->
 
+Since there are 20 cuisines in this project, one possible benchmark would to achieve a categorization accuracy greater than random choice or `5%`. However, according to the public leaderboard for the Kaggle competition, the highest scoring model currently achieves a score of `0.82783`, while the sample benchmark achieves a score of `0.19267`. Since the sample benchmark is higher than random choice, the goal of this project will be to achieve a score greater or equal to the sample benchmark instead.
 
 ## III. Methodology
 _(approx. 3-5 pages)_
 
 ### Data Preprocessing
+<!--
 In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
 - _If the algorithms chosen require preprocessing steps like feature selection or feature transformations, have they been properly documented?_
 - _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
 - _If no preprocessing is needed, has it been made clear why?_
+-->
+The following steps will be taken when preprocesing the data:
+- Drop id column as it does not contribute to the prediction of the recipe's cuisine.
+- One hot encode the ingredients because ingredients are categorical data.
 
 ### Implementation
 In this section, the process for which metrics, algorithms, and techniques that you implemented for the given data will need to be clearly documented. It should be abundantly clear how the implementation was carried out, and discussion should be made regarding any complications that occurred during this process. Questions to ask yourself when writing this section:
