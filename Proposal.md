@@ -20,7 +20,7 @@ In this project, the data used will come from the [What's Cooking?](https://www.
 
 ## Solution Statement
 
-In this project, a decision tree will be used to built a classifier for predicting the cuisine. The decision tree is a god algorithm for this problem is because of the size of the dataset. The decision tree achieves high accuracy despite the size of dataset because the decision tree automatically learns which features(ingredients) are the most important when predicting the target(cuisine) and emphasizes them.
+In this project, a decision tree will be used to built a classifier for predicting the cuisine. The decision tree is a good algorithm for this problem is because of the size of the dataset. The decision tree achieves high accuracy despite the size of dataset because the decision tree automatically learns which features(ingredients) are the most important when predicting the target(cuisine) and emphasizes them.
 
 ## Benchmark model
 
