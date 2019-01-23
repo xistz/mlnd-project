@@ -75,20 +75,39 @@ After loading `train.json` and `test.json` using `pandas.read_json`, we find tha
 
 There are 20 unique cuisines represented in this project. They are, greek, southern_us, filipino, indian, jamaican, spanish, italian, mexican, chinese, british, thai, vietnamese, cajun_creole, brazilian, french, japanese, irish, korean, moroccan, and russian.
 
-![Number of Unique Cuisines]()
+![Number of Recipes by Cuisine](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..6YtnflAzW7V6ePvkrAc_5A.-K2Z8HZM3Dff6Wfwfsg9_jbLFs2THy4uULtyF5zifxaaBKK3kA81w_YjV0EIkYKQIyBgriKK81wa5Q1ey69fNf5ZwmoUiBEzI-OncI_CRTuRaULA0wcBfdAGXusexWHNvcIWbjJvyp2eJbgYxBmRaoiJrf2XWgiRAzF6pPM42vk.joiG9SxnuG_iu5rHSlQU0Q/no_recipes_cuisine.png)
 
 From the figure, we can see that the distribution of cuisines in the train dataset is not uniform. This could lead to a problem when training the model, as the model could be bias towards cuisines that are more well represented in the train dataset.
 
 There was no information about the id field in the dataset. Id probably refers to the id of the recipe in yummly's database. Since the goal of the project is to build a classifier to predict cuisine from ingredients, the id field will be dropped when preprocessing the data.
 
-There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. The least common ingredient was white almond bark; it was only used in 1 recipe. If ingredients are not dropped, we will need to choose a classifier like a decision tree that works well with a large number features.
+![Most common ingredients](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..H3johd1m9J4GL0AadrYwrg.jPubDEqp8urN4XC5eMR29x-rT00F2mQA22GuQLnLQsGH-hsCE0W3FpaUounjL7KnwSN2T0S3rxjp1Hh9AbChrIsDD1risa15h4tr1Z6cPZFVyL6WQluQ_Db427v1HwGmMZgk8r8x8F66F-KoVEVFSsaaXUEHFZhSrGPza4UWlMY.lzRn3OOMxJ-zsqaQCHZjrA/most_common_ingredients.png)
 
-![Number of Ingredients per Recipe]()
+There are 6,714 unique ingredients in this project. The most common ingredient in the train dataset is salt; it was used in 18,049 recipes. 1759 ingredients were used in only 1 recipe. Because of the large number of ingredients, we will need to consider classifiers such as decision trees which work well with large number of features.
 
-Number of Ingredients per recipe by Cuisine
+Next, we will consider what the common ingredients in each cuisine.
 
-Most common Ingredient of each cuisine.
+![Most common ingredients by cuisine](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..TC2HcfJJ0q6IAgrjkOz3hQ.tX4SrukJYC2dngKK0HNLJQ_ljXjKiejnnDKPGkaZ9uT1fqINXcm9bwQIHxP-B8nW_nCGcPaoVLwjeocs8cKIoKC3J1DmCRvmhcN6X7E8teTnGcsa7mcuQ49HVKjK9Rmpu19H2eOBLR-U9N6Z7ikYqK9FVkovKTyHiCRuK6RbyU4.PcDXyyf6awPviSAN7syb-w/common_ingredients_by_cuisine.png)
 
+As expected from the plot of common ingredients, salt is the most common ingredient in almost half the cuisines, only Asian cuisines such Chinese, Thai, Vietnamese, Japanese and Korean use another condiment in place of salt to salt their ingredients. Because, salt and its related condiments (soy sauce, and fish sauce) is the most common ingredient in the train dataset, it could suggest that this train dataset is also predominantly made up of savoury recipes. It could imply that the resulting model would not work as well on sweet recipes 
+
+Considering the most common ingredients by cuisine is not as informative as it could be. As seen from the plots above, there are still many common ingredients used across cuisines. As such, it would be better to consider the most common ingredients in each cuisine that are unique to that cuisine. This would give us a better idea of what kind of ingredients tend to define a cuisine.
+
+![Most common ingredients unique to the cuisine](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..gFwTq1Y1YP2HMVvLh1JQww.vu8umh_bgngUeEWgHECKC15cA3p5Cd9_6erFDaplLnl-DTu7o_HKHPawoKgGemF0UmNymmeU7J8-aeAjWve67xfu_I-3pS0u_GmwoXUFHnmkV9rIfJX1eg-c5IFrUGiv7BajdbNx2fPB85Ugr8YZfcEQRqihwAdlT2qO_zbyAU0.u9ufHDD1KU1azbiOYp6MXA/unique_ingredients_by_cuisine.png)
+
+From this plot, it gives us a better idea about how to distinguish cuisines by recipe. For example, one thing that distinguishes Japanese cuisine from others it their use of [dashi powder](https://en.wikipedia.org/wiki/Dashi). Dashi is the stock base from which many Japanese recipes are based upon. As such this would also suggest that a model built from considering ingredients unique to the cuisine would be far more successful than a model built from the most common ingredients. To emphasis unique ingredients, we will make use of [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) when preprocessing our train dataset.
+
+Next, we will consider the number of ingredients in each recipe.
+
+![Number of Ingredients per Recipe](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..WVakWNu565qwUc7IHcsndA.zc5Apzy92iSCRa3J6kycj3AINes2kU--nL-5DPdH2mUda61VpyQe_hSgnTUQNlERmnL59huPN81tFb98bI-rNfP7mZsOSSuwjGWOYhaflqSlxOAaSYnEeAR-qgTXUkZ4NEna8Fm7MHoPTbPJpFH1zAqlUc1qB8xgsdGW8Afhb8A.0Sd69PTk1xaD1zw9i1WKOQ/ingredients_per_recipe.png)
+
+From the information above, the maximum number of ingredients for a recipe in the training data is 65 while the minimum number of ingredients for a recipe is 1. Although 65 is the most number of ingredients, it appears to be more of an outlier. Most recipes have about 10 ingredients. Although, the distribution seems to be skewed to the right, having a large number of ingredients in a recipe is not the norm (only 40 recipes have more than 30 ingedients).
+
+Finally, we will consider the number of ingredients by cuisine.
+
+![Number of Ingredients per Recipe by Cuisine](https://www.kaggleusercontent.com/kf/9844859/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..e-b9Fb8oaS_s-QZiQUg0Tw.w_LzdpjyyNnSUyulM4P2jijFn7GA8rr5miBPVU9oQFQkxVv0Eqw76GtPvXWhGPXVQGqMXn6PRZMr07AL4SeIyGLwTrpqRgIT111WexiRCdNsxss9TevP8ASnVTClJ7lc62mkwzo-_n_5zwZP884VAbofjwC3paZqAWaf6m5_nhA.Z35Bm3M12OGKPS3906juvQ/number_of_ingredients_by_cuisine.png)
+
+From the boxplot, Moroccan cuisine has the highest average number of ingredients used per recipe. Most other cuisines have an average of 10 ingredients used, as expected by the histogram plot earlier. With the exception of Morrocan cuisines, it also appears that recipe length will not help in the classification of cuisines.
 
 ### Algorithms and Techniques
 <!--
@@ -123,8 +142,9 @@ In this section, all of your preprocessing steps will need to be clearly documen
 - _If no preprocessing is needed, has it been made clear why?_
 -->
 The following steps will be taken when preprocesing the data:
-- Drop id column as it does not contribute to the prediction of the recipe's cuisine.
+- Split the train dataset into targets, Y(cuisnes) and features, X(ingredients).
 - One hot encode the ingredients because ingredients are categorical data.
+- Split the train dataset into a training set and validation set.
 
 ### Implementation
 In this section, the process for which metrics, algorithms, and techniques that you implemented for the given data will need to be clearly documented. It should be abundantly clear how the implementation was carried out, and discussion should be made regarding any complications that occurred during this process. Questions to ask yourself when writing this section:
